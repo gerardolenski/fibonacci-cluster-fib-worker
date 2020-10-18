@@ -1,0 +1,15 @@
+mq:
+  worker-queue-name: ${WORKER_QUEUE_NAME}
+  worker-concurrency: ${WORKER_CONCURRENCY}
+
+spring:
+  # ActiveMQ broker
+  activemq:
+    broker-url: ${BROKER_URL}
+    user: ${BROKER_USER}
+    password: ${BROKER_PASSWORD}
+
+logging:
+  level:
+    root: info
+    org.gol: ${LOGGING_LEVEL}

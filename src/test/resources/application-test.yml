@@ -1,0 +1,11 @@
+mq:
+  worker-queue-name: worker-test
+
+spring:
+  activemq:
+    broker-url: vm://embedded?broker.persistance=false,useShutdownHook=false
+    in-memory: true
+
+logging:
+  level:
+    org.gol: trace
