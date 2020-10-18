@@ -1,5 +1,6 @@
 mq:
   worker-queue-name: worker-test
+  worker-concurrency: 1-1
 
 spring:
   activemq:
