@@ -1,6 +1,9 @@
 mq:
-  worker-queue-name: worker-test
-  worker-concurrency: 1-1
+  worker:
+    queue-name: worker-test
+    concurrency: 1-1
+    message-type-id: org.gol.taskmanager.infrastructure.amq.AmqWorkerMessage
+
 
 spring:
   activemq:
