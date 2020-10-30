@@ -16,7 +16,9 @@
 
     <properties>
         <java.version>11</java.version>
+        <apache-commons-lang.version>3.11</apache-commons-lang.version>
         <lombok.version>1.18.16</lombok.version>
+        <vavr.version>0.10.3</vavr.version>
     </properties>
 
     <dependencies>
@@ -27,6 +29,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache-commons-lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>${vavr.version}</version>
         </dependency>
 
         <dependency>

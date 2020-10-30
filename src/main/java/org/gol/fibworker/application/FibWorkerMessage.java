@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.gol.fibworker.domain.model.JobData;
-import org.gol.fibworker.domain.model.WorkerData;
+import org.gol.fibworker.domain.job.JobData;
+import org.gol.fibworker.domain.job.WorkerData;
 
 import java.util.UUID;
 
@@ -29,6 +29,7 @@ class FibWorkerMessage implements WorkerData {
     @ToString
     @AllArgsConstructor(onConstructor = @__(@JsonCreator))
     static class FibJobData implements JobData {
+        private final UUID jobId;
         private final Integer number;
         private final String algorithm;
     }

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 class ApplicationParamsConfiguration implements ConfigurationPort {
+
     private final String workerQueueName;
     private final String workerConcurrency;
     private final String workerMessageTypeId;
-
 
     ApplicationParamsConfiguration(
             @Value(WORKER_QUEUE_NAME_PROPERTY) String workerQueueName,
