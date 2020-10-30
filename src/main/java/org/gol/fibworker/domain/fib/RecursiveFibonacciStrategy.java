@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import static java.lang.String.format;
 
 @Slf4j
-class RecursiveFibonacciStrategy extends BaseFibonacciAlgorithm {
+class RecursiveFibonacciStrategy extends BaseFibonacciStrategy {
 
     public RecursiveFibonacciStrategy(int num) {
         super(num, log);

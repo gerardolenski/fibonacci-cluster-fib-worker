@@ -1,15 +1,17 @@
-package org.gol.fibworker.application;
+package org.gol.fibworker.infrastructure.amq;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.gol.fibworker.domain.result.ResultData;
+import lombok.ToString;
 
 import java.math.BigInteger;
 import java.util.UUID;
 
 @Getter
 @Builder
-class FibResult implements ResultData {
+@ToString
+class FibonacciResultMessage {
+    private final UUID taskId;
     private final UUID jobId;
     private final BigInteger result;
     private final Long processingTime;

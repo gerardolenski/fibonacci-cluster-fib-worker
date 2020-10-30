@@ -8,7 +8,7 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 
 @Slf4j
-class IterativeFibonacciStrategy extends BaseFibonacciAlgorithm {
+class IterativeFibonacciStrategy extends BaseFibonacciStrategy {
 
     public IterativeFibonacciStrategy(int num) {
         super(num, log);

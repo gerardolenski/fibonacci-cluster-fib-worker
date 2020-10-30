@@ -8,7 +8,7 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 
 @Slf4j
-class ExponentialFibonacciStrategy extends BaseFibonacciAlgorithm {
+class ExponentialFibonacciStrategy extends BaseFibonacciStrategy {
 
     private static final BigInteger[][] MATRIX = {{ONE, ONE}, {ONE, ZERO}};
 

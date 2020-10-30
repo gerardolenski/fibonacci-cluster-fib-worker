@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import static java.lang.String.format;
 
 @Slf4j
-class BinetsFibonacciStrategy extends BaseFibonacciAlgorithm {
+class BinetsFibonacciStrategy extends BaseFibonacciStrategy {
 
     private static final double SQRT_5 = Math.sqrt(5);
     private static final double PHI = (1 + SQRT_5) / 2;

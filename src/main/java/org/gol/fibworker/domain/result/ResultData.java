@@ -5,5 +5,10 @@ import java.util.UUID;
 
 public interface ResultData {
     UUID getJobId();
+
     BigInteger getResult();
+
+    Long getProcessingTime();
+
+    String getErrorMessage();
 }
