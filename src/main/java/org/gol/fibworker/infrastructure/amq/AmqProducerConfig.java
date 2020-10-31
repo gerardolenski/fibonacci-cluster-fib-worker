@@ -37,7 +37,7 @@ class AmqProducerConfig {
     }
 
     private MessageConverter initJmsMessageConverter() {
-        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        var converter = new MappingJackson2MessageConverter();
         converter.setTargetType(TEXT);
         converter.setTypeIdPropertyName(TYPE_ID_PROPERTY_NAME);
         converter.setObjectMapper(initJmsObjectMapper());

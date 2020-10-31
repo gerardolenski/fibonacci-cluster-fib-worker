@@ -33,7 +33,7 @@ class AmqConsumerConfig {
     @Bean(WORKER_QUEUE_FACTORY)
     JmsListenerContainerFactory<DefaultMessageListenerContainer> queueListenerFactory(
             @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory) {
-        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        var factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setPubSubDomain(false);
         factory.setMessageConverter(initJmsMessageConverter());
@@ -42,7 +42,7 @@ class AmqConsumerConfig {
     }
 
     private MessageConverter initJmsMessageConverter() {
-        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        var converter = new MappingJackson2MessageConverter();
         converter.setTargetType(TEXT);
         converter.setTypeIdPropertyName(TYPE_ID_PROPERTY_NAME);
         converter.setTypeIdMappings(getMessageTypeIdMapping());
