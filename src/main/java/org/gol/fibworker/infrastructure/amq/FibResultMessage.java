@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @ToString
-class FibonacciResultMessage {
+class FibResultMessage {
     private final UUID taskId;
     private final UUID jobId;
     private final BigInteger result;

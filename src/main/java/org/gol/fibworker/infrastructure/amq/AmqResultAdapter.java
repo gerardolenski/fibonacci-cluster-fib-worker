@@ -17,8 +17,8 @@ class AmqResultAdapter implements ResultPort {
 
     public static final String RESULT_PROPERTY_NAME = "workerResult";
 
-    private static final BiFunction<UUID, ResultData, FibonacciResultMessage> TO_MESSAGE = (taskId, data) ->
-            FibonacciResultMessage.builder()
+    private static final BiFunction<UUID, ResultData, FibResultMessage> TO_MESSAGE = (taskId, data) ->
+            FibResultMessage.builder()
                     .taskId(taskId)
                     .jobId(data.getJobId())
                     .result(data.getResult())

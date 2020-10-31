@@ -1,6 +1,7 @@
 package org.gol.fibworker.application;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -27,6 +28,7 @@ class FibWorkerMessage implements WorkerData {
 
     @Getter
     @ToString
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @AllArgsConstructor(onConstructor = @__(@JsonCreator))
     static class FibJobData implements JobData {
         private final UUID jobId;
