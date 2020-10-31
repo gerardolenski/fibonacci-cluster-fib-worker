@@ -41,7 +41,7 @@ class AmqConsumerConfig {
         return factory;
     }
 
-    MessageConverter initJmsMessageConverter() {
+    private MessageConverter initJmsMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(TEXT);
         converter.setTypeIdPropertyName(TYPE_ID_PROPERTY_NAME);
@@ -50,7 +50,7 @@ class AmqConsumerConfig {
         return converter;
     }
 
-    ObjectMapper initJmsObjectMapper() {
+    private ObjectMapper initJmsObjectMapper() {
         return new ObjectMapper()
                 .registerModule(new ParameterNamesModule(PROPERTIES));
     }
