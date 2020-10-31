@@ -23,39 +23,36 @@ import static org.springframework.jms.support.converter.MessageType.TEXT;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-class AmqConfig {
+class AmqConsumerConfig {
 
     static final String WORKER_QUEUE_FACTORY = "workerQueue";
     private static final String TYPE_ID_PROPERTY_NAME = "_type";
 
     private final ConfigurationPort configurationPort;
 
-    @Bean
-    ObjectMapper jmsObjectMapper() {
-        return new ObjectMapper()
-                .registerModule(new ParameterNamesModule(PROPERTIES));
+    @Bean(WORKER_QUEUE_FACTORY)
+    JmsListenerContainerFactory<DefaultMessageListenerContainer> queueListenerFactory(
+            @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setPubSubDomain(false);
+        factory.setMessageConverter(initJmsMessageConverter());
+        factory.setErrorHandler(e -> log.error("Message processing error: {}", e.getMessage(), e));
+        return factory;
     }
 
-    @Bean
-    MessageConverter jmsMessageConverter(@Qualifier("jmsObjectMapper") ObjectMapper mapper) {
+    MessageConverter initJmsMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(TEXT);
         converter.setTypeIdPropertyName(TYPE_ID_PROPERTY_NAME);
         converter.setTypeIdMappings(getMessageTypeIdMapping());
-        converter.setObjectMapper(mapper);
+        converter.setObjectMapper(initJmsObjectMapper());
         return converter;
     }
 
-    @Bean(WORKER_QUEUE_FACTORY)
-    public JmsListenerContainerFactory<DefaultMessageListenerContainer> queueListenerFactory(
-            @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory,
-            @Qualifier("jmsMessageConverter") MessageConverter messageConverter) {
-        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setPubSubDomain(false);
-        factory.setMessageConverter(messageConverter);
-        factory.setErrorHandler(e -> log.error("Cannot consume message: {}", e.getMessage(), e));
-        return factory;
+    ObjectMapper initJmsObjectMapper() {
+        return new ObjectMapper()
+                .registerModule(new ParameterNamesModule(PROPERTIES));
     }
 
     private Map<String, Class<?>> getMessageTypeIdMapping() {

@@ -16,7 +16,7 @@ import java.math.BigInteger;
 import java.util.UUID;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.gol.fibworker.application.AmqConfig.WORKER_QUEUE_FACTORY;
+import static org.gol.fibworker.application.AmqConsumerConfig.WORKER_QUEUE_FACTORY;
 import static org.gol.fibworker.domain.config.params.ConfigurationPort.WORKER_CONCURRENCY_PROPERTY;
 import static org.gol.fibworker.domain.config.params.ConfigurationPort.WORKER_QUEUE_NAME_PROPERTY;
 import static org.gol.fibworker.domain.fib.FibonacciStrategyFactory.getFibonacciStrategy;
