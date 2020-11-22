@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gol.fibworker.domain.config.params.ConfigurationPort;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.actuate.jms.JmsHealthIndicator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
@@ -39,6 +40,12 @@ class AmqConsumerConfig {
         factory.setMessageConverter(initJmsMessageConverter());
         factory.setErrorHandler(e -> log.error("Message processing error: {}", e.getMessage(), e));
         return factory;
+    }
+
+    @Bean
+    JmsHealthIndicator jmsHealthIndicator(
+            @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory) {
+        return new JmsHealthIndicator(connectionFactory);
     }
 
     private MessageConverter initJmsMessageConverter() {
