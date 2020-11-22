@@ -11,6 +11,11 @@ spring:
     user: ${BROKER_USER}
     password: ${BROKER_PASSWORD}
 
+management:
+  endpoint:
+    health:
+      show-details: always
+
 logging:
   level:
     root: info
