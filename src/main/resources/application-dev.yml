@@ -9,7 +9,7 @@ mq:
 
 spring:
   activemq:
-    broker-url: tcp://localhost:61616
+    broker-url: failover:(tcp://localhost:61616)?jms.useAsyncSend=true
     user: admin
     password: admin
 

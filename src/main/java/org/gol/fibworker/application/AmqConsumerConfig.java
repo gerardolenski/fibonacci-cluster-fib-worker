@@ -42,12 +42,6 @@ class AmqConsumerConfig {
         return factory;
     }
 
-    @Bean
-    JmsHealthIndicator jmsHealthIndicator(
-            @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory) {
-        return new JmsHealthIndicator(connectionFactory);
-    }
-
     private MessageConverter initJmsMessageConverter() {
         var converter = new MappingJackson2MessageConverter();
         converter.setTargetType(TEXT);

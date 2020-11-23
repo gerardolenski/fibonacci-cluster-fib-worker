@@ -2,7 +2,7 @@ package org.gol.fibworker.infrastructure.amq;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import lombok.extern.slf4j.Slf4j;
+
 import org.gol.fibworker.domain.config.params.ConfigurationPort;
 import org.gol.fibworker.domain.result.ResultPort;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +17,6 @@ import javax.jms.ConnectionFactory;
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 import static org.springframework.jms.support.converter.MessageType.TEXT;
 
-@Slf4j
 @Configuration
 class AmqProducerConfig {
 
