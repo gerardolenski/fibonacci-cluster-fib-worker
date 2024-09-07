@@ -1,5 +1,6 @@
 package org.gol.fibworker.domain.fib;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -9,17 +10,64 @@ import java.util.stream.Stream;
 
 import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class FibonacciTest {
 
     @ParameterizedTest(name = "{index}. fib of {0}")
     @MethodSource("fibonacciSupplier")
-    void fib0(int num, BigInteger expectResult) {
-        assertEquals(expectResult, new IterativeFibonacciStrategy(num).calculateFibonacciNumber());
-        assertEquals(expectResult, new RecursiveFibonacciStrategy(num).calculateFibonacciNumber());
-        assertEquals(expectResult, new BinetsFibonacciStrategy(num).calculateFibonacciNumber());
-        assertEquals(expectResult, new ExponentialFibonacciStrategy(num).calculateFibonacciNumber());
+    @DisplayName("should calculate fibonacci by iterative strategy [positive]")
+    void iterativeFibonacci(int num, BigInteger expectResult) {
+        //given
+        var sut = new IterativeFibonacciStrategy(num);
+
+        //when
+        var result = sut.calculateFibonacciNumber();
+
+        //then
+        assertThat(result).isEqualTo(expectResult);
+    }
+
+    @ParameterizedTest(name = "{index}. fib of {0}")
+    @MethodSource("fibonacciSupplier")
+    @DisplayName("should calculate fibonacci by recursive strategy [positive]")
+    void recursiveFibonacci(int num, BigInteger expectResult) {
+        //given
+        var sut = new RecursiveFibonacciStrategy(num);
+
+        //when
+        var result = sut.calculateFibonacciNumber();
+
+        //then
+        assertThat(result).isEqualTo(expectResult);
+    }
+
+    @ParameterizedTest(name = "{index}. fib of {0}")
+    @MethodSource("fibonacciSupplier")
+    @DisplayName("should calculate fibonacci by binets strategy [positive]")
+    void binetsFibonacci(int num, BigInteger expectResult) {
+        //given
+        var sut = new BinetsFibonacciStrategy(num);
+
+        //when
+        var result = sut.calculateFibonacciNumber();
+
+        //then
+        assertThat(result).isEqualTo(expectResult);
+    }
+
+    @ParameterizedTest(name = "{index}. fib of {0}")
+    @MethodSource("fibonacciSupplier")
+    @DisplayName("should calculate fibonacci by exponential strategy [positive]")
+    void exponentialFibonacci(int num, BigInteger expectResult) {
+        //given
+        var sut = new ExponentialFibonacciStrategy(num);
+
+        //when
+        var result = sut.calculateFibonacciNumber();
+
+        //then
+        assertThat(result).isEqualTo(expectResult);
     }
 
     private static Stream<Arguments> fibonacciSupplier() {

@@ -1,8 +1,8 @@
 package org.gol.fibworker.domain.fib;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.math.BigInteger;
+
+import lombok.extern.slf4j.Slf4j;
 
 import static java.lang.String.format;
 

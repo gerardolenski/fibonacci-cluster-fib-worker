@@ -1,17 +1,16 @@
 package org.gol.fibworker.application;
 
-import lombok.Builder;
-import lombok.Getter;
 import org.gol.fibworker.domain.result.ResultData;
 
 import java.math.BigInteger;
 import java.util.UUID;
 
-@Getter
+import lombok.Builder;
+
 @Builder
-class FibResult implements ResultData {
-    private final UUID jobId;
-    private final BigInteger result;
-    private final Long processingTime;
-    private final String errorMessage;
+record FibResult(
+        UUID jobId,
+        BigInteger result,
+        Long processingTime,
+        String errorMessage) implements ResultData {
 }

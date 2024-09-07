@@ -4,11 +4,11 @@ import java.math.BigInteger;
 import java.util.UUID;
 
 public interface ResultData {
-    UUID getJobId();
+    UUID jobId();
 
-    BigInteger getResult();
+    BigInteger result();
 
-    Long getProcessingTime();
+    Long processingTime();
 
-    String getErrorMessage();
+    String errorMessage();
 }
