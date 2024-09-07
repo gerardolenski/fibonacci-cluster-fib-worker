@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: ${TOMCAT_PORT:8080}
 
 mq:
   worker:
     queue-name: ${WORKER_QUEUE_NAME}
-    concurrency: ${WORKER_CONCURRENCY}
+    concurrency: ${WORKER_CONCURRENCY:1-10}
     message-type-id: ${WORKER_MESSAGE_TYPE_ID:org.gol.taskmanager.infrastructure.amq.AmqWorkerMessage}
 
 spring:
@@ -22,4 +22,4 @@ management:
 logging:
   level:
     root: info
-    org.gol: ${LOGGING_LEVEL}
+    org.gol: ${LOGGING_LEVEL:info}

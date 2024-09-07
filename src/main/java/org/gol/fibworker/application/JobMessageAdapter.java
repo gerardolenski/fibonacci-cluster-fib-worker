@@ -1,24 +1,21 @@
 package org.gol.fibworker.application;
 
-import io.vavr.control.Try;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
-import org.gol.fibworker.domain.config.params.ConfigurationPort;
-import org.gol.fibworker.domain.fib.FibonacciPort;
+import org.gol.fibworker.domain.fib.FibonacciStrategy;
 import org.gol.fibworker.domain.result.ResultPort;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.math.BigInteger;
 import java.util.UUID;
 
+import io.vavr.control.Try;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.gol.fibworker.application.AmqConsumerConfig.WORKER_QUEUE_FACTORY;
-import static org.gol.fibworker.domain.config.params.ConfigurationPort.WORKER_CONCURRENCY_PROPERTY;
-import static org.gol.fibworker.domain.config.params.ConfigurationPort.WORKER_QUEUE_NAME_PROPERTY;
 import static org.gol.fibworker.domain.fib.FibonacciStrategyFactory.getFibonacciStrategy;
 
 @Slf4j
@@ -27,8 +24,9 @@ import static org.gol.fibworker.domain.fib.FibonacciStrategyFactory.getFibonacci
 class JobMessageAdapter {
 
     private static final String FIBONACCI_SELECTOR = "worker = 'FIBONACCI'";
+    private static final String WORKER_QUEUE_NAME_PROPERTY = "${mq.worker.queue-name}";
+    private static final String WORKER_CONCURRENCY_PROPERTY = "${mq.worker.concurrency}";
 
-    private final ConfigurationPort configurationPort;
     private final ResultPort resultPort;
 
     @JmsListener(
@@ -38,23 +36,17 @@ class JobMessageAdapter {
             containerFactory = WORKER_QUEUE_FACTORY)
     void handleFibonacciJob(Message<FibWorkerMessage> message) {
         var fibMessage = message.getPayload();
-        var fibJob = fibMessage.getJobData();
-        log.debug("Consume message: {}", message.getPayload());
+        var fibJob = fibMessage.data();
+        log.debug("Consumed message: {}", message.getPayload());
 
         var watch = StopWatch.create();
-        Try.of(() -> getFibonacciStrategy(fibJob.getAlgorithm(), fibJob.getNumber()))
+        Try.of(() -> getFibonacciStrategy(fibJob.algorithm(), fibJob.number()))
                 .andThen(watch::start)
-                .map(FibonacciPort::calculateFibonacciNumber)
+                .map(FibonacciStrategy::calculateFibonacciNumber)
                 .andThen(watch::stop)
                 .onFailure(e -> log.error("The FIB number could not be calculated: {}", e.getMessage()))
-                .onFailure(e -> sendFailure(fibMessage.getTaskId(), fibJob.getJobId(), e))
-                .onSuccess(result -> sendSuccess(fibMessage.getTaskId(), fibJob.getJobId(), result, watch.getTime(MILLISECONDS)));
-    }
-
-    @PostConstruct
-    void init() {
-        log.info("Initialized JOB MESSAGE LISTENER with queue: {} and concurrency: {}",
-                configurationPort.getWorkerQueueName(), configurationPort.getWorkerConcurrency());
+                .onFailure(e -> sendFailure(fibMessage.taskId(), fibJob.jobId(), e))
+                .onSuccess(result -> sendSuccess(fibMessage.taskId(), fibJob.jobId(), result, watch.getTime(MILLISECONDS)));
     }
 
     private void sendSuccess(UUID taskId, UUID jobId, BigInteger result, long processingTime) {

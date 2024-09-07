@@ -1,7 +1,5 @@
 package org.gol.fibworker.infrastructure.amq;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.gol.fibworker.domain.result.ResultData;
 import org.gol.fibworker.domain.result.ResultPort;
@@ -10,6 +8,9 @@ import org.springframework.jms.core.MessagePostProcessor;
 
 import java.util.UUID;
 import java.util.function.BiFunction;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,10 +21,10 @@ class AmqResultAdapter implements ResultPort {
     private static final BiFunction<UUID, ResultData, FibResultMessage> TO_MESSAGE = (taskId, data) ->
             FibResultMessage.builder()
                     .taskId(taskId)
-                    .jobId(data.getJobId())
-                    .result(data.getResult())
-                    .processingTime(data.getProcessingTime())
-                    .errorMessage(data.getErrorMessage())
+                    .jobId(data.jobId())
+                    .result(data.result())
+                    .processingTime(data.processingTime())
+                    .errorMessage(data.errorMessage())
                     .build();
 
     private static final MessagePostProcessor RESULT_POSTPROCESSOR = message -> {

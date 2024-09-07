@@ -1,13 +1,14 @@
 package org.gol.fibworker.domain.fib;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 
 import java.math.BigInteger;
 
+import lombok.RequiredArgsConstructor;
+
 @RequiredArgsConstructor
-abstract class BaseFibonacciStrategy implements FibonacciPort {
+abstract class BaseFibonacciStrategy implements FibonacciStrategy {
 
     private final int num;
     private final Logger log;
