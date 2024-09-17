@@ -8,16 +8,27 @@ mq:
     message-type-id: ${WORKER_MESSAGE_TYPE_ID:org.gol.taskmanager.infrastructure.amq.AmqWorkerMessage}
 
 spring:
-  # ActiveMQ broker
-  activemq:
+  # Artemis broker
+  artemis:
+    mode: native
     broker-url: ${BROKER_URL}
     user: ${BROKER_USER}
     password: ${BROKER_PASSWORD}
+  jms:
+    cache:
+      session-cache-size: ${JMS_SESSION_CACHE_SIZE:5}
 
 management:
   endpoint:
     health:
       show-details: always
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: ping
+        readiness:
+          include: jms, diskSpace
 
 logging:
   level:

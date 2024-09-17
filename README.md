@@ -2,6 +2,10 @@
 
 For more description see: [fibonacci-cluster-docker](https://github.com/gerardolenski/fibonacci-cluster-docker) and [fibonacci-cluster-k8s](https://github.com/gerardolenski/fibonacci-cluster-k8s)
 
+## Requirements
+- Java 21
+- Artemis
+
 ## Configuration
 
 App can be configured by environment variables:
@@ -11,6 +15,9 @@ App can be configured by environment variables:
 - `BROKER_PASSWORD` - the AMQ password
 - `WORKER_QUEUE_NAME` - the name of the worker queue
 - `WORKER_CONCURRENCY` - the consumer concurrency, by default `1-10`
+- `JMS_SESSION_CACHE_SIZE` - the size of the cache for `SessionConnectionFactory`, by default `5`
+
+
 - `TOMCAT_PORT` - the port of exposed API, by default `8080` 
  
 The example configuration:

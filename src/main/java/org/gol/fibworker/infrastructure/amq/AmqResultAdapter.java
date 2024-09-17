@@ -1,6 +1,6 @@
 package org.gol.fibworker.infrastructure.amq;
 
-import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.gol.fibworker.domain.result.ResultData;
 import org.gol.fibworker.domain.result.ResultPort;
 import org.springframework.jms.core.JmsTemplate;
