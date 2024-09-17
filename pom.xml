@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.gol</groupId>
     <artifactId>fibworker</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0-SNAPSHOT</version>
     <name>fib-worker</name>
     <description>Fibonacci Worker</description>
 
@@ -19,12 +19,14 @@
         <apache-commons-lang.version>3.17.0</apache-commons-lang.version>
         <lombok.version>1.18.34</lombok.version>
         <vavr.version>0.10.4</vavr.version>
+        <gson.version>2.11.0</gson.version>
+        <testcontainers.version>1.20.1</testcontainers.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-activemq</artifactId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -45,13 +47,25 @@
             <version>${apache-commons-lang.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
             <version>${vavr.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>activemq</artifactId>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
 

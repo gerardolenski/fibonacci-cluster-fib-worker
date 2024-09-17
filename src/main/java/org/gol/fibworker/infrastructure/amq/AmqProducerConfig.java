@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import org.gol.fibworker.domain.result.ResultPort;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +19,9 @@ import static org.springframework.jms.support.converter.MessageType.TEXT;
 @Configuration
 class AmqProducerConfig {
 
-    private static final String TYPE_ID_PROPERTY_NAME = "_type";
-
     @Bean
     ResultPort amqResultAdapter(
-            @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory,
+            ConnectionFactory connectionFactory,
             @Value("${mq.worker.queue-name}") String workerQueueName) {
         return new AmqResultAdapter(initJmsTemplate(connectionFactory), workerQueueName);
     }
@@ -38,7 +35,6 @@ class AmqProducerConfig {
     private MessageConverter initJmsMessageConverter() {
         var converter = new MappingJackson2MessageConverter();
         converter.setTargetType(TEXT);
-        converter.setTypeIdPropertyName(TYPE_ID_PROPERTY_NAME);
         converter.setObjectMapper(initJmsObjectMapper());
         return converter;
     }
