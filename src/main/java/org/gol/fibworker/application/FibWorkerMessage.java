@@ -2,14 +2,11 @@ package org.gol.fibworker.application;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import org.gol.fibworker.domain.job.JobData;
-import org.gol.fibworker.domain.job.WorkerData;
-
 import java.util.UUID;
 
-record FibWorkerMessage(UUID taskId, FibJobData data) implements WorkerData {
+record FibWorkerMessage(UUID taskId, FibJobData data) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    record FibJobData(UUID jobId, Integer number, String algorithm) implements JobData {
+    record FibJobData(UUID jobId, Integer number, String algorithm) {
     }
 }

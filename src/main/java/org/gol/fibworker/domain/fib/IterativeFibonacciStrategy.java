@@ -15,7 +15,7 @@ class IterativeFibonacciStrategy extends BaseFibonacciStrategy {
     }
 
     @Override
-    BigInteger getFib(int n) {
+    BigInteger findFib(int n) {
         if (n == 0) return ZERO;
         if (n == 1) return ONE;
 

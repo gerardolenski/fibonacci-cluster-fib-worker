@@ -1,0 +1,9 @@
+{
+  "taskId": "5753a351-fc13-4d10-8fd5-28bd15124501",
+  "data": {
+    "jobId": "84f423f4-b5d4-41ed-9ff9-d591b64cd25b",
+    "number": 45,
+    "algorithm": "ITERATIVE",
+    "jobDetails": "FIBONACCI(45) -> ITERATIVE"
+  }
+}

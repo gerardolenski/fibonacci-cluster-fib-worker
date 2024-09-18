@@ -18,7 +18,7 @@ class BinetsFibonacciStrategy extends BaseFibonacciStrategy {
     }
 
     @Override
-    BigInteger getFib(int n) {
+    BigInteger findFib(int n) {
         if (n > 71) {
             throw new UnsupportedOperationException(format("Number %d is too big for BINETS FIBONACCI ALGORITHM to be accurate.", n));
         }

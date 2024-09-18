@@ -23,7 +23,7 @@ class AmqProducerConfig {
     ResultPort amqResultAdapter(
             ConnectionFactory connectionFactory,
             @Value("${mq.worker.queue-name}") String workerQueueName) {
-        return new AmqResultAdapter(initJmsTemplate(connectionFactory), workerQueueName);
+        return new ArtemisResultAdapter(initJmsTemplate(connectionFactory), workerQueueName);
     }
 
     private JmsTemplate initJmsTemplate(ConnectionFactory connectionFactory) {

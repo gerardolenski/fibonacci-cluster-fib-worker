@@ -1,7 +1,6 @@
 package org.gol.fibworker.domain.fib;
 
-import java.math.BigInteger;
-
+@FunctionalInterface
 public interface FibonacciStrategy {
-    BigInteger calculateFibonacciNumber();
+    FibonacciResult calculateFibonacciNumber();
 }
