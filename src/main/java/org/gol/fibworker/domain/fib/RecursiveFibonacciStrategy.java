@@ -14,16 +14,14 @@ class RecursiveFibonacciStrategy extends BaseFibonacciStrategy {
     }
 
     @Override
-    BigInteger getFib(int n) {
-        if (n > 49) {
+    BigInteger findFib(int n) {
+        if (n > 49)
             throw new UnsupportedOperationException(format("Number %d is too big for RECURSIVE FIBONACCI ALGORITHM", n));
-        }
         return BigInteger.valueOf(f(n));
     }
 
     private long f(int n) {
-        if (n <= 1)
-            return n;
+        if (n <= 1) return n;
         return f(n - 1) + f(n - 2);
     }
 }

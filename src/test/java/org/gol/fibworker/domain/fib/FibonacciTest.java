@@ -25,7 +25,7 @@ class FibonacciTest {
         var result = sut.calculateFibonacciNumber();
 
         //then
-        assertThat(result).isEqualTo(expectResult);
+        assertThat(result.number()).isEqualTo(expectResult);
     }
 
     @ParameterizedTest(name = "{index}. fib of {0}")
@@ -39,7 +39,7 @@ class FibonacciTest {
         var result = sut.calculateFibonacciNumber();
 
         //then
-        assertThat(result).isEqualTo(expectResult);
+        assertThat(result.number()).isEqualTo(expectResult);
     }
 
     @ParameterizedTest(name = "{index}. fib of {0}")
@@ -53,7 +53,7 @@ class FibonacciTest {
         var result = sut.calculateFibonacciNumber();
 
         //then
-        assertThat(result).isEqualTo(expectResult);
+        assertThat(result.number()).isEqualTo(expectResult);
     }
 
     @ParameterizedTest(name = "{index}. fib of {0}")
@@ -67,7 +67,21 @@ class FibonacciTest {
         var result = sut.calculateFibonacciNumber();
 
         //then
-        assertThat(result).isEqualTo(expectResult);
+        assertThat(result.number()).isEqualTo(expectResult);
+    }
+
+    @ParameterizedTest(name = "{index}. fib of {0}")
+    @MethodSource("fibonacciSupplier")
+    @DisplayName("should calculate fibonacci by streaming iterative strategy [positive]")
+    void streamingIterativeFibonacci(int num, BigInteger expectResult) {
+        //given
+        var sut = new StreamingIterativeFibonacciStrategy(num);
+
+        //when
+        var result = sut.calculateFibonacciNumber();
+
+        //then
+        assertThat(result.number()).isEqualTo(expectResult);
     }
 
     private static Stream<Arguments> fibonacciSupplier() {

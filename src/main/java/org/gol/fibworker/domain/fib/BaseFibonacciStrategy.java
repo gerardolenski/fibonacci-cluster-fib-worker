@@ -1,11 +1,14 @@
 package org.gol.fibworker.domain.fib;
 
-import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 
 import java.math.BigInteger;
 
 import lombok.RequiredArgsConstructor;
+
+import static java.time.Duration.ofMillis;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.apache.commons.lang3.time.StopWatch.createStarted;
 
 @RequiredArgsConstructor
 abstract class BaseFibonacciStrategy implements FibonacciStrategy {
@@ -14,15 +17,14 @@ abstract class BaseFibonacciStrategy implements FibonacciStrategy {
     private final Logger log;
 
     @Override
-    public BigInteger calculateFibonacciNumber() {
-        log.debug("Calculating Fibonacci number of {}", num);
-        var watch = StopWatch.createStarted();
-        var fib = getFib(num);
+    public FibonacciResult calculateFibonacciNumber() {
+        log.debug("Calculating Fibonacci number: base={}", num);
+        var watch = createStarted();
+        var fib = findFib(num);
         watch.stop();
-        log.trace("fib({}) = {}", num, fib);
-        log.debug("Calculated Fibonacci number of {} in {}", num, watch.formatTime());
-        return fib;
+        log.debug("Calculated Fibonacci number: fib({}) = {}, executionTime={}", num, fib, watch.getTime(MILLISECONDS));
+        return new FibonacciResult(fib, ofMillis(watch.getTime(MILLISECONDS)));
     }
 
-    abstract BigInteger getFib(int n);
+    abstract BigInteger findFib(int n);
 }

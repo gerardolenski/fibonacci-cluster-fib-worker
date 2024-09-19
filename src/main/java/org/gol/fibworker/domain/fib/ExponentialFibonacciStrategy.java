@@ -17,7 +17,7 @@ class ExponentialFibonacciStrategy extends BaseFibonacciStrategy {
     }
 
     @Override
-    BigInteger getFib(int n) {
+    BigInteger findFib(int n) {
         if (n == 0) return ZERO;
         if (n == 1) return ONE;
         return power(MATRIX, n - 1)[0][0];
