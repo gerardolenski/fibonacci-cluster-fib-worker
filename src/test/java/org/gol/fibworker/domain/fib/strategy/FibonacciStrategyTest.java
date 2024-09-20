@@ -1,4 +1,4 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain.fib.strategy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +12,7 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FibonacciTest {
+class FibonacciStrategyTest {
 
     @ParameterizedTest(name = "{index}. fib of {0}")
     @MethodSource("fibonacciSupplier")

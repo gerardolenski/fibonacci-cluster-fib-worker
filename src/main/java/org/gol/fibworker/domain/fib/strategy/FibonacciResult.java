@@ -1,4 +1,4 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain.fib.strategy;
 
 import java.math.BigInteger;
 import java.time.Duration;

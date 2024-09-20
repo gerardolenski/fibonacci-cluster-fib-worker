@@ -1,5 +1,7 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain.fib.strategy;
 
+import org.gol.fibworker.domain.model.AlgorithmClaim;
+import org.gol.fibworker.domain.model.SequenceBase;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
@@ -7,7 +9,6 @@ import java.util.function.Function;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import static java.lang.String.format;
 import static java.util.Arrays.stream;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -31,11 +32,11 @@ public class FibonacciStrategyFactory {
         }
     }
 
-    public FibonacciStrategy findStrategy(String algorithm, Integer number) {
+    public FibonacciStrategy findStrategy(AlgorithmClaim algorithmClaim, SequenceBase sequenceBase) {
         return stream(Algorithm.values())
-                .filter(a -> a.name().equals(algorithm))
+                .filter(a -> a.name().equals(algorithmClaim.value()))
                 .findFirst()
-                .map(a -> a.apply(number))
-                .orElseThrow(() -> new IllegalArgumentException(format("Unknown Fibonacci algorithm: algorithm=%s", algorithm)));
+                .map(a -> a.apply(sequenceBase.value()))
+                .orElseGet(() -> new StreamingIterativeFibonacciStrategy(sequenceBase.value()));
     }
 }

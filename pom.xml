@@ -21,6 +21,7 @@
         <vavr.version>0.10.4</vavr.version>
         <gson.version>2.11.0</gson.version>
         <testcontainers.version>1.20.1</testcontainers.version>
+        <awaitility.version>4.2.2</awaitility.version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,12 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>activemq</artifactId>
             <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
             <scope>test</scope>
         </dependency>
 

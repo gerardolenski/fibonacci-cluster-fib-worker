@@ -1,6 +1,6 @@
 package org.gol.fibworker.domain.result;
 
-import org.gol.fibworker.domain.fib.FibonacciResult;
+import org.gol.fibworker.domain.fib.strategy.FibonacciResult;
 import org.gol.fibworker.domain.model.JobId;
 import org.gol.fibworker.domain.model.TaskId;
 

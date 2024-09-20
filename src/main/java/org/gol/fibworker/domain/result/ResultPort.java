@@ -1,7 +1,7 @@
 package org.gol.fibworker.domain.result;
 
 /**
- * Secondary port sending the result of the Fibonacci number calculation.
+ * Secondary (driven) port sending the result of the Fibonacci number calculation.
  */
 public interface ResultPort {
 

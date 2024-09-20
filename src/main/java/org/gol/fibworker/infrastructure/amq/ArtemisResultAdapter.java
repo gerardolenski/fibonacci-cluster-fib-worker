@@ -10,6 +10,9 @@ import org.springframework.jms.core.MessagePostProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Secondary adapter working with Artemis broker.
+ */
 @Slf4j
 @RequiredArgsConstructor
 class ArtemisResultAdapter implements ResultPort {

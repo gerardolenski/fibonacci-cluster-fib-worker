@@ -1,4 +1,4 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain.fib.strategy;
 
 import org.slf4j.Logger;
 
@@ -18,7 +18,7 @@ abstract class BaseFibonacciStrategy implements FibonacciStrategy {
 
     @Override
     public FibonacciResult calculateFibonacciNumber() {
-        log.debug("Calculating Fibonacci number: base={}", num);
+        log.debug("Calculating Fibonacci number: sequenceBase={}", num);
         var watch = createStarted();
         var fib = findFib(num);
         watch.stop();
