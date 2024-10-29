@@ -1,7 +1,7 @@
 package org.gol.fibworker.application;
 
-import org.gol.fibworker.domain.fib.FibonacciProcessingCmd;
-import org.gol.fibworker.domain.fib.FibonacciProcessingPort;
+import org.gol.fibworker.domain.FibonacciProcessingCmd;
+import org.gol.fibworker.domain.FibonacciProcessingPort;
 import org.gol.fibworker.domain.model.AlgorithmClaim;
 import org.gol.fibworker.domain.model.JobId;
 import org.gol.fibworker.domain.model.SequenceBase;

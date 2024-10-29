@@ -1,8 +1,7 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain;
 
+import org.gol.fibworker.domain.fib.FibCalculator;
 import org.gol.fibworker.domain.fib.strategy.FibonacciResult;
-import org.gol.fibworker.domain.fib.strategy.FibonacciStrategy;
-import org.gol.fibworker.domain.fib.strategy.FibonacciStrategyFactory;
 import org.gol.fibworker.domain.model.FailureMessage;
 import org.gol.fibworker.domain.model.JobId;
 import org.gol.fibworker.domain.model.TaskId;
@@ -23,15 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 class DefaultFibonacciProcessor implements FibonacciProcessingPort {
 
+    private final FibCalculator fibCalculator;
     private final ResultPort resultPort;
-    private final FibonacciStrategyFactory fibStrategyFactory;
 
     @Override
     public void calcFibonacci(FibonacciProcessingCmd cmd) {
         log.info("Starting Fibonacci calculation: taskId={}, jobId={}, algorithmClaim={}, sequenceBase={}",
                 cmd.taskId().value(), cmd.jobId().value(), cmd.algorithmClaim().value(), cmd.sequenceBase().value());
-        Try.of(() -> fibStrategyFactory.findStrategy(cmd.algorithmClaim(), cmd.sequenceBase()))
-                .mapTry(FibonacciStrategy::calculateFibonacciNumber)
+        Try.of(() -> fibCalculator.calculateFibonacciNumber(cmd.algorithmClaim(), cmd.sequenceBase()))
                 .onSuccess(result -> sendSuccess(cmd.taskId(), cmd.jobId(), result))
                 .onFailure(e -> sendFailure(cmd.taskId(), cmd.jobId(), e));
     }
