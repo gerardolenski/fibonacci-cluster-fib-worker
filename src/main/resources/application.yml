@@ -18,6 +18,15 @@ spring:
     cache:
       session-cache-size: ${JMS_SESSION_CACHE_SIZE:5}
 
+fib:
+  # Type of Fibonacci number calculator: eager, caching
+  calculator-type: eager
+
+logging:
+  level:
+    root: info
+    org.gol: ${LOGGING_LEVEL:info}
+
 management:
   endpoint:
     health:
@@ -29,8 +38,3 @@ management:
           include: ping
         readiness:
           include: jms, diskSpace
-
-logging:
-  level:
-    root: info
-    org.gol: ${LOGGING_LEVEL:info}
