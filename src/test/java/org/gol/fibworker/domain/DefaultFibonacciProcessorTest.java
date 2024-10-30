@@ -1,8 +1,7 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain;
 
+import org.gol.fibworker.domain.fib.FibCalculator;
 import org.gol.fibworker.domain.fib.strategy.FibonacciResult;
-import org.gol.fibworker.domain.fib.strategy.FibonacciStrategy;
-import org.gol.fibworker.domain.fib.strategy.FibonacciStrategyFactory;
 import org.gol.fibworker.domain.model.AlgorithmClaim;
 import org.gol.fibworker.domain.model.JobId;
 import org.gol.fibworker.domain.model.SequenceBase;
@@ -39,7 +38,6 @@ class DefaultFibonacciProcessorTest {
     private static final SequenceBase SEQUENCE_BASE = new SequenceBase(45);
     private static final FibonacciResult FIB_RESULT = new FibonacciResult(BigInteger.valueOf(1134903170), ofMillis(100));
     private static final String ERROR_MESSAGE = "calc error";
-    private static final FibonacciStrategy STRATEGY = () -> FIB_RESULT;
     private static final FibonacciProcessingCmd CMD = FibonacciProcessingCmd.builder()
             .taskId(TASK_ID)
             .jobId(JOB_ID)
@@ -50,7 +48,7 @@ class DefaultFibonacciProcessorTest {
     @Mock
     private ResultPort resultPort;
     @Mock
-    private FibonacciStrategyFactory strategyFactory;
+    private FibCalculator fibCalculator;
     @Captor
     private ArgumentCaptor<SuccessResultCmd> successCmdCaptor;
     @Captor
@@ -60,14 +58,14 @@ class DefaultFibonacciProcessorTest {
 
     @BeforeEach
     void init() {
-        sut = new DefaultFibonacciProcessor(resultPort, strategyFactory);
+        sut = new DefaultFibonacciProcessor(fibCalculator, resultPort);
     }
 
     @Test
     @DisplayName("should correctly orchestrate Fibonacci number calculation [positive]")
     void shouldProcessCorrectCmd() {
         //given
-        doReturn(STRATEGY).when(strategyFactory).findStrategy(ALGORITHM_CLAIM, SEQUENCE_BASE);
+        doReturn(FIB_RESULT).when(fibCalculator).calculateFibonacciNumber(ALGORITHM_CLAIM, SEQUENCE_BASE);
 
         //when
         sut.calcFibonacci(CMD);
@@ -88,7 +86,7 @@ class DefaultFibonacciProcessorTest {
     @DisplayName("should handle process failure [negative]")
     void shouldHandleProcessingError() {
         //given
-        doThrow(new IllegalStateException(ERROR_MESSAGE)).when(strategyFactory).findStrategy(ALGORITHM_CLAIM, SEQUENCE_BASE);
+        doThrow(new IllegalStateException(ERROR_MESSAGE)).when(fibCalculator).calculateFibonacciNumber(ALGORITHM_CLAIM, SEQUENCE_BASE);
 
         //when
         sut.calcFibonacci(CMD);
@@ -104,5 +102,4 @@ class DefaultFibonacciProcessorTest {
         assertThat(resultCmd.errorMessage().value())
                 .isEqualTo(ERROR_MESSAGE);
     }
-
 }

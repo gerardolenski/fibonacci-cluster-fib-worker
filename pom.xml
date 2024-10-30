@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.3.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.gol</groupId>
@@ -20,7 +20,8 @@
         <lombok.version>1.18.34</lombok.version>
         <vavr.version>0.10.4</vavr.version>
         <gson.version>2.11.0</gson.version>
-        <testcontainers.version>1.20.1</testcontainers.version>
+        <testcontainers.version>1.20.3</testcontainers.version>
+        <testcontainers-redis.version>2.2.2</testcontainers-redis.version>
         <awaitility.version>4.2.2</awaitility.version>
     </properties>
 
@@ -36,6 +37,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,6 +72,12 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>activemq</artifactId>
             <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.redis</groupId>
+            <artifactId>testcontainers-redis</artifactId>
+            <version>${testcontainers-redis.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -1,4 +1,4 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain;
 
 /**
  * The primary (driving) port of Fibonacci number processing flow.

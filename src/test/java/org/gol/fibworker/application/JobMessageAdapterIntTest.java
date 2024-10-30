@@ -1,7 +1,7 @@
 package org.gol.fibworker.application;
 
 import org.gol.fibworker.BaseIT;
-import org.gol.fibworker.domain.fib.FibonacciProcessingPort;
+import org.gol.fibworker.domain.FibonacciProcessingPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

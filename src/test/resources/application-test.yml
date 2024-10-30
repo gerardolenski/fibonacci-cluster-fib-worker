@@ -8,6 +8,10 @@ spring:
     user: artemis
     password: artemis
 
+fib:
+  calculation:
+    is-cache-active: false
+
 logging:
   level:
     org.gol: trace

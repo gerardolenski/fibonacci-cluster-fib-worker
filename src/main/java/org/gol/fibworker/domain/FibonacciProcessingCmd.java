@@ -1,4 +1,4 @@
-package org.gol.fibworker.domain.fib;
+package org.gol.fibworker.domain;
 
 import org.gol.fibworker.domain.model.AlgorithmClaim;
 import org.gol.fibworker.domain.model.JobId;
