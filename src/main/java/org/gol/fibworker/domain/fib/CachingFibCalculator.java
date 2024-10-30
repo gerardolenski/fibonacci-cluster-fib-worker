@@ -20,7 +20,7 @@ class CachingFibCalculator implements FibCalculator {
     private final FibCalculator calc;
 
     @Override
-    @Cacheable(key = "{#algorithmClaim.value(), #sequenceBase.value()}", sync = true)
+    @Cacheable(key = "{#algorithmClaim.value(), #sequenceBase.value()}")
     public FibonacciResult calculateFibonacciNumber(AlgorithmClaim algorithmClaim, SequenceBase sequenceBase) {
         return calc.calculateFibonacciNumber(algorithmClaim, sequenceBase);
     }

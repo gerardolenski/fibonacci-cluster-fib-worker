@@ -5,7 +5,7 @@ mq:
   worker:
     queue-name: ${WORKER_QUEUE_NAME}
     concurrency: ${WORKER_CONCURRENCY:1-10}
-    message-type-id: ${WORKER_MESSAGE_TYPE_ID:org.gol.taskmanager.infrastructure.amq.AmqWorkerMessage}
+
 
 spring:
   # Artemis broker
@@ -14,13 +14,26 @@ spring:
     broker-url: ${BROKER_URL}
     user: ${BROKER_USER}
     password: ${BROKER_PASSWORD}
+  cache:
+    cache-names: fibCalc
+    redis:
+      time-to-live: ${REDIS_CACHE_TTL:10m}
+      enable-statistics: ${REDIS_ENABLE_STATS:false}
+      key-prefix: ${REDIS_KEY_PREFIX:fib-worker-}
+      cache-null-values: false
+      use-key-prefix: true
+    type: redis
   jms:
     cache:
       session-cache-size: ${JMS_SESSION_CACHE_SIZE:5}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
 
 fib:
-  # Type of Fibonacci number calculator: eager, caching
-  calculator-type: eager
+  calculation:
+    is-cache-active: ${FIB_CALC_CACHE_ACTIVATED:true}
 
 logging:
   level:

@@ -4,19 +4,24 @@ import org.gol.fibworker.domain.fib.strategy.FibonacciStrategyFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 class FibCalculatorConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "fib", name = "calculator-type", havingValue = "eager")
     FibCalculator eagerFibCalculator(FibonacciStrategyFactory fibStrategyFactory) {
         return new EagerFibCalculator(fibStrategyFactory);
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "fib", name = "calculator-type", havingValue = "caching")
+    @Primary
+    @ConditionalOnProperty(prefix = "fib.calculation", name = "is-cache-active", havingValue = "true")
     FibCalculator cachingFibCalculator(FibonacciStrategyFactory fibStrategyFactory) {
-        return new CachingFibCalculator(new EagerFibCalculator(fibStrategyFactory));
+        log.info("Initializing CACHING fib calculator");
+        return new CachingFibCalculator(eagerFibCalculator(fibStrategyFactory));
     }
 }
