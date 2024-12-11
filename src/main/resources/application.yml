@@ -3,7 +3,8 @@ server:
 
 mq:
   worker:
-    queue-name: ${WORKER_QUEUE_NAME}
+    job-queue-name: ${JOB_QUEUE_NAME}
+    job-result-queue-name: ${JOB_RESULT_QUEUE_NAME}
     concurrency: ${WORKER_CONCURRENCY:1-10}
 
 

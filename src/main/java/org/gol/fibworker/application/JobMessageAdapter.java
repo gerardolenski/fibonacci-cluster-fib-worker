@@ -1,7 +1,10 @@
 package org.gol.fibworker.application;
 
 import com.google.gson.Gson;
-
+import io.vavr.control.Try;
+import jakarta.jms.TextMessage;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.gol.fibworker.domain.FibonacciProcessingCmd;
 import org.gol.fibworker.domain.FibonacciProcessingPort;
 import org.gol.fibworker.domain.model.AlgorithmClaim;
@@ -13,11 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import io.vavr.control.Try;
-import jakarta.jms.TextMessage;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * Primary adapter working with Artemis Broker.
  */
@@ -27,14 +25,15 @@ import lombok.extern.slf4j.Slf4j;
 class JobMessageAdapter {
 
     private static final String FIBONACCI_SELECTOR = "worker = 'FIBONACCI'";
-    private static final String WORKER_QUEUE_NAME_PROPERTY = "${mq.worker.queue-name}";
+    private static final String JOB_QUEUE_NAME_PROPERTY = "${mq.worker.job-queue-name}";
     private static final String WORKER_CONCURRENCY_PROPERTY = "${mq.worker.concurrency}";
     private static final Gson GSON = new Gson();
 
     private final FibonacciProcessingPort processingPort;
+    private final FibJobDataDeserializer fibJobDataDeserializer;
 
     @JmsListener(
-            destination = WORKER_QUEUE_NAME_PROPERTY,
+            destination = JOB_QUEUE_NAME_PROPERTY,
             selector = FIBONACCI_SELECTOR,
             concurrency = WORKER_CONCURRENCY_PROPERTY)
     void handleFibonacciJob(TextMessage message) {
@@ -53,10 +52,10 @@ class JobMessageAdapter {
     }
 
     private FibonacciProcessingCmd toCmd(FibWorkerMessage message) {
-        var fibJob = message.data();
+        var fibJob = fibJobDataDeserializer.deserialize(message.data());
         return FibonacciProcessingCmd.builder()
                 .taskId(new TaskId(message.taskId()))
-                .jobId(new JobId(fibJob.jobId()))
+                .jobId(new JobId(message.jobId()))
                 .algorithmClaim(new AlgorithmClaim(fibJob.algorithm()))
                 .sequenceBase(new SequenceBase(fibJob.number()))
                 .build();

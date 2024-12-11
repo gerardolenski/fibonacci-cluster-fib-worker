@@ -1,6 +1,7 @@
 mq:
   worker:
-    queue-name: worker-test
+    job-queue-name: job-test
+    job-result-queue-name: job-result-test
     concurrency: 1-1
 
 spring:

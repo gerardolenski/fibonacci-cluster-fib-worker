@@ -1,5 +1,7 @@
 package org.gol.fibworker.application;
 
+import jakarta.jms.JMSException;
+import jakarta.jms.TextMessage;
 import org.gol.fibworker.domain.FibonacciProcessingCmd;
 import org.gol.fibworker.domain.FibonacciProcessingPort;
 import org.gol.fibworker.domain.model.AlgorithmClaim;
@@ -16,15 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.nio.file.Path;
 import java.util.UUID;
 
-import jakarta.jms.JMSException;
-import jakarta.jms.TextMessage;
-
 import static java.nio.file.Files.readString;
 import static org.junit.platform.commons.function.Try.call;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class JobMessageAdapterTest {
@@ -43,8 +40,7 @@ class JobMessageAdapterTest {
 
     @BeforeEach
     void init() {
-        sut = new JobMessageAdapter(processingPort);
-        sut = new JobMessageAdapter(processingPort);
+        sut = new JobMessageAdapter(processingPort, new FibJobDataDeserializer());
     }
 
     @Test

@@ -23,7 +23,8 @@ import static org.mockito.Mockito.verify;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@TestPropertySource(properties = "mq.worker.queue-name=JobMessageAdapterIntTest")
+@TestPropertySource(properties = {"mq.worker.job-queue-name=JobMessageAdapterIntTest-job",
+        "mq.worker.job-result-queue-name=JobMessageAdapterIntTest-result"})
 class JobMessageAdapterIntTest extends BaseIT {
 
     private static final int MAX_TIMEOUT = 10000;
@@ -40,7 +41,7 @@ class JobMessageAdapterIntTest extends BaseIT {
         var messagePayload = readString(MESSGAE_CONTRACT_PATH);
 
         //when
-        jmsTemplate.convertAndSend("JobMessageAdapterIntTest",
+        jmsTemplate.convertAndSend("JobMessageAdapterIntTest-job",
                 messagePayload,
                 message -> {
                     message.setStringProperty("worker", "FIBONACCI");
